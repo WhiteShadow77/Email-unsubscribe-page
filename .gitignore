@@ -1,0 +1,9 @@
+public/build
+.env
+.fleet
+.idea
+.vscode
+.zed
+.docker
+docker-compose.yaml
+
