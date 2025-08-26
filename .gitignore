@@ -6,4 +6,5 @@ public/build
 .zed
 .docker
 docker-compose.yaml
+unsubscribe-handler.php
 

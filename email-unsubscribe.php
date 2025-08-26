@@ -28,7 +28,7 @@ if (isset($_POST['email'])) {
 }
 ?>
 
-<html>
+<html lang="en">
 <meta charset="UTF-8" />
 <head>
     <title>Unsubscribe from email</title>
