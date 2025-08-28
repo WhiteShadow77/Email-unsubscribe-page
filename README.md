@@ -1,5 +1,5 @@
 ### To run
-Paste all files on server. Set credentials ```ACCOUNT_ID```, ```PASSCODE``` in email-unsubscribe.php file. Access
+Clone the repository. Paste all files on server. Set credentials ```ACCOUNT_ID```, ```PASSCODE``` in email-unsubscribe.php file. Access
 browser email-unsubscribe.php file.
 
 ### Description 
