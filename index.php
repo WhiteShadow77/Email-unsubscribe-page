@@ -5,21 +5,29 @@ function unsubscribeEmail($email)
     include('vendor/rmccue/requests/library/Requests.php');
     Requests::register_autoloader();
     $headers = array(
-        'X-CleverTap-Account-Id' => 'ACCOUNT_ID',
-        'X-CleverTap-Passcode' => 'PASSCODE',
+        'X-CleverTap-Account-Id' => '46W-46W-9W7Z',
+        'X-CleverTap-Passcode' => 'c28559db2cb24cfd95877a4ca2863f43',
         'Content-Type' => 'application/json; charset=utf-8'
     );
-    $data = '{"d":[{"objectId":"' . $email . '","type":"profile","emailOptIn": false}]}';
+    $data = '{"d":[{"objectId":"' . $email . '","type":"profile","profileData": {"Email": "' . $email . '","MSG-email": false }}]}';
 
-    $response = Requests::post('https://in1.api.clevertap.com/1/upload', $headers, $data);
 
-    $responseObj = json_decode($response->body);
+    $response = Requests::post('https://us1.api.clevertap.com/1/upload', $headers, $data);
 
-    if ($responseObj->code ===200) {
+    $responseArray = json_decode($response->body, true);
+
+    if ($responseArray['status'] == 'success') {
         header("Location: /index.php?result=success");
     } else {
-        $errorEncoded = urlencode($responseObj->error);
-        header("Location: /index.php?error=" . $errorEncoded);
+
+        $errorsForResponse = [
+            'processed' => $responseArray['processed'],
+            'code' => $responseArray['unprocessed'][0]['code'],
+            'error' => $responseArray['unprocessed'][0]['error'],
+            'record' => $responseArray['unprocessed'][0]['record'],
+        ];
+        $errorForResponseEncoded = urlencode(json_encode($errorsForResponse));
+        header("Location: /index.php?error=" . $errorForResponseEncoded);
     }
 }
 
@@ -44,7 +52,8 @@ if (isset($_POST['email']) && $_POST['email'] == '') {
     </body>
     </html>
     ERROR_PAGE;
-    echo $errorPage; exit;
+    echo $errorPage;
+    exit;
 }
 
 if (isset($_GET['result']) && $_GET['result'] === 'success') {
@@ -76,8 +85,23 @@ if (isset($_GET['error'])) {
     <div>
         <h4>Unsubscribe unsuccessful</h4>
     ERROR_PAGE;
-    $errorPage .= "<h5>" . urldecode($_GET['error']) . "</h5";
-    $errorPage .= <<<ERROR_PAGE
+    $errors = urldecode($_GET['error']);
+    $errorsArray = json_decode($errors, true);
+
+    $code = "<h5>Code: " . urldecode($errorsArray['code']) . "</h5>";
+    $error = "<h5>Error: " . urldecode($errorsArray['error']) . "</h5>";
+    $processed = "<h5>Processed: " . urldecode($errorsArray['processed']) . "</h5>";
+    $record = "<h5>Record: </h5>";
+
+    if (!is_null($errorsArray['record'])) {
+        foreach ($errorsArray['record'] as $key => $value) {
+            $record .= $key . ": " . $value . "<br/>";
+        }
+    } else {
+        $record = "";
+    }
+
+    $errorPage .= $code .= $error .= $record .= <<<ERROR_PAGE
         <br/>
         <a href="/index.php">To unsubscribe page</a>
     </div>
@@ -89,7 +113,7 @@ if (isset($_GET['error'])) {
 }
 ?>
 <html lang="en">
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <head>
     <title>Unsubscribe from email</title>
 </head>
