@@ -1,5 +1,5 @@
 ### To run
-Clone the repository. Paste all files except email-unsubscribe.html on server. Set credentials
+Clone the repository. Paste all files on server. Set credentials
 ```ACCOUNT_ID```, ```PASSCODE``` in index.php file. Access browser https://your-domain
 ### Review
 Temporary access to soft here http://alexkhl4.beget.tech
