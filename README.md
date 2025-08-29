@@ -1,6 +1,6 @@
 ### To run
-Clone the repository. Paste all files on server. Set credentials
-```ACCOUNT_ID```, ```PASSCODE``` in index.php file. Access browser https://your-domain
+Clone the repository. Paste all files on server (document root folder). Set credentials
+```ACCOUNT_ID```, ```PASSCODE``` in index.php file. Access by browser https://your-domain
 ### Review
 Temporary access to soft here http://alexkhl4.beget.tech
 ### Description
