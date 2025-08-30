@@ -5,8 +5,8 @@ function unsubscribeEmail($email)
     include('vendor/rmccue/requests/library/Requests.php');
     Requests::register_autoloader();
     $headers = array(
-        'X-CleverTap-Account-Id' => '46W-46W-9W7Z',
-        'X-CleverTap-Passcode' => 'c28559db2cb24cfd95877a4ca2863f43',
+        'X-CleverTap-Account-Id' => 'XXX-XXX-XXXX',
+        'X-CleverTap-Passcode' => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'Content-Type' => 'application/json; charset=utf-8'
     );
     $data = '{"d":[{"objectId":"' . $email . '","type":"profile","profileData": {"Email": "' . $email . '","MSG-email": false }}]}';

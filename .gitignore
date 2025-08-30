@@ -8,4 +8,5 @@ public/build
 docker-compose.yaml
 test.html
 test2.html
+creds.txt
 
